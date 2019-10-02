@@ -1,7 +1,14 @@
+#!/bin/bash
+echo "insert number cycles"
+read cycles
+
+echo "insert output name"
+read output_name
+
 mg5 <<-EOF
 define q = u c d s u~ c~ d~ s~
 generate p p > q q
-output pp_qq_jet_events
+output $output_name
 launch
 1
 0
@@ -11,9 +18,10 @@ set ptjmax 1100
 0
 EOF
 
+for ((i = 1; i < cycles; i++))
+do
 mg5 <<-EOF
-launch pp_qq_jet_events
-1
+launch output_name
 0
 set nevents 50000
 set ptj 1000
@@ -21,35 +29,5 @@ set ptjmax 1100
 0
 EOF
 
-mg5 <<-EOF
-launch pp_qq_jet_events
-1
-0
-set nevents 50000
-set ptj 1000
-set ptjmax 1100
-0
-EOF
-
-mg5 <<-EOF
-launch pp_qq_jet_events
-1
-0
-set nevents 50000
-set ptj 1000
-set ptjmax 1100
-0
-EOF
-
-mg5 <<-EOF
-launch pp_qq_jet_events
-1
-0
-set nevents 50000
-set ptj 1000
-set ptjmax 1100
-0
-EOF
-
-
+done
 
